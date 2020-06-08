@@ -5,8 +5,8 @@
         <img src="../../../assets/images/fuhoCommercLogo.png" style="width:300px;"/>
       </a>
       <nav *ngIf="!isAuthenticated" class="my-2 my-md-0 mr-md-3">
-         <a class="p-2 text-dark" routerLink="/register">Signup</a> 
-         <a class="p-2 text-dark" routerLink="/login">Login</a>
+         <a class="p-2 text-dark" routerLink="/">About</a>
+         <a class="p-2 text-dark" routerLink="/">Help</a>
       </nav>
       <nav *ngIf="isAuthenticated" class="my-2 my-md-0 mr-md-3">
          <a class="p-2 text-dark" (click)="signout()" href="javascript:void(0)">Signout {{name}}</a>
