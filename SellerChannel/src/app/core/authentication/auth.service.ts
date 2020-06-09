@@ -16,7 +16,7 @@ export class AuthService extends BaseService {
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings);
+  private manager = new UserManager(settings);
   private user: User | null;
 
   constructor(protected http: HttpClient) {
@@ -60,7 +60,7 @@ export class AuthService extends BaseService {
   }
 }
 
-const getClientSettings = {
+const settings = {
   authority: ClientSettings.Authority,
   client_id: ClientSettings.ClientId,
   redirect_uri: ClientSettings.RedirectUri,
