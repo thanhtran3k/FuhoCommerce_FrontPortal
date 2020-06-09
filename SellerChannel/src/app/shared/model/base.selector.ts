@@ -1,7 +1,7 @@
 import { Actions, ofType } from '@ngrx/effects';
-import { BaseSuccessAction, BaseFailedAction } from 'src/shared/model/action.interface';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { BaseSuccessAction, BaseFailedAction } from './action.interface';
 
 export class BaseSelector {
   constructor(
