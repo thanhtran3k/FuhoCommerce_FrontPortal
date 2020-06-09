@@ -8,8 +8,14 @@ import { ShellModule } from './shell/shell.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { Dispatcher } from './app.dispatcher';
+import { AuthorizeInterceptor } from './core/authentication/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,14 +25,32 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
   imports: [    
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    //My modules
     CoreModule,
     HomeModule,
     AccountModule,
     AppRoutingModule,
     ShellModule,
-    NgbModule
+    //End
+
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    NgbModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 10 //  Buffers the last 10 states
+    }),
   ],
-  providers: [],
+  providers: [
+    Dispatcher,
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthorizeInterceptor, 
+      multi: true 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

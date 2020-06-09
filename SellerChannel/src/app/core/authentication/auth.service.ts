@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserManager, User } from 'oidc-client';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 
 import { BaseService } from 'src/app/shared/services/base.service';
 import { ClientSettings } from '../auth.constants';
@@ -25,8 +25,17 @@ export class AuthService extends BaseService {
 
     this.manager.getUser().then(user => {
       this.user = user;
+
+      if (this.user) {
+        localStorage.setItem('userInfo', JSON.stringify(this.user))
+      }
+
       this._authNavStatusSource.next(this.isAuthenticated());
     });
+  }
+
+  public getAccessToken() {
+    return this.user.access_token;
   }
 
   login() {
@@ -56,6 +65,7 @@ export class AuthService extends BaseService {
   }
 
   async signout() {
+    localStorage.clear();
     await this.manager.signoutRedirect();
   }
 }
