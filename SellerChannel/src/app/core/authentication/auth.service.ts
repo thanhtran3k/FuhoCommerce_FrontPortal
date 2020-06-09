@@ -1,42 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { UserManager, UserManagerSettings, User } from 'oidc-client';
-import { BehaviorSubject } from 'rxjs'; 
+import { UserManager, User } from 'oidc-client';
+import { BehaviorSubject } from 'rxjs';
 
 import { BaseService } from 'src/app/shared/services/base.service';
+import { ClientSettings } from '../auth.constants';
+import { IDENTITY_SERVER } from 'src/environments/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends BaseService  {
+
+export class AuthService extends BaseService {
 
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings());
+  private manager = new UserManager(getClientSettings);
   private user: User | null;
 
-  constructor(protected http: HttpClient) { 
-    super(http);     
-    
-    this.manager.getUser().then(user => { 
-      this.user = user;      
+  constructor(protected http: HttpClient) {
+    super(http);
+    this.baseUrl = IDENTITY_SERVER;
+
+    this.manager.getUser().then(user => {
+      this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
 
-  login() { 
-    return this.manager.signinRedirect();   
+  login() {
+    return this.manager.signinRedirect();
   }
 
   async completeAuthentication() {
-      this.user = await this.manager.signinRedirectCallback();
-      this._authNavStatusSource.next(this.isAuthenticated());      
-  }  
+    this.user = await this.manager.signinRedirectCallback();
+    this._authNavStatusSource.next(this.isAuthenticated());
+  }
 
-  register(userRegistration: any) {    
-    return this.http.post('https://localhost:5000/account', userRegistration).pipe(catchError(this.handleError));
+  register(registrationInput: any) {
+    const url = '/Account/RegisterUser';
+    return this.post<any>(url, registrationInput);
   }
 
   isAuthenticated(): boolean {
@@ -56,17 +60,15 @@ export class AuthService extends BaseService  {
   }
 }
 
-export function getClientSettings(): UserManagerSettings {
-  return {
-      authority: 'http://localhost:5000',
-      client_id: 'angular_spa',
-      redirect_uri: 'http://localhost:4200/auth-callback',
-      post_logout_redirect_uri: 'http://localhost:4200/',
-      response_type:"id_token token",
-      scope:"openid profile email api.read",
-      filterProtocolClaims: true,
-      loadUserInfo: true,
-      automaticSilentRenew: true,
-      silent_redirect_uri: 'http://localhost:4200/silent-refresh.html'
-  };
-}
+const getClientSettings = {
+  authority: ClientSettings.Authority,
+  client_id: ClientSettings.ClientId,
+  redirect_uri: ClientSettings.RedirectUri,
+  post_logout_redirect_uri: ClientSettings.PostLogoutRedirectUri,
+  response_type: ClientSettings.ResponseType,
+  scope: ClientSettings.Scope,
+  filterProtocolClaims: true,
+  loadUserInfo: true,
+  automaticSilentRenew: true,
+  silent_redirect_uri: ClientSettings.SilentRedirectUri
+};
