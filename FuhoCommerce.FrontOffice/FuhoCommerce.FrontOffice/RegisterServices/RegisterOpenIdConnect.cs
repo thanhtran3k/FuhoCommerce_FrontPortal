@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
+using System.Diagnostics.Tracing;
 
 namespace FuhoCommerce.FrontOffice.RegisterServices
 {
@@ -17,11 +19,12 @@ namespace FuhoCommerce.FrontOffice.RegisterServices
             //Need to refactor in the future
             services.AddAuthentication(options =>
             {
-                //options.DefaultScheme = "Cookies";
-                //options.DefaultChallengeScheme = "oidc";
                 ConfigureAuthenticationOptions(options);
             })
-                .AddCookie()
+                .AddCookie(options => {
+                    //For Chrome 80 version
+                    options.Cookie.SameSite = SameSiteMode.Unspecified;
+                })
                 .AddOpenIdConnect(options =>
                 {
                     ConfigureOpenIdConnectOptions(options, configuration);
