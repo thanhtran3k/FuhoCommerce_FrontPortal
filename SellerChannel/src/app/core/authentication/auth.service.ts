@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, from } from 'rxjs';
 
 import { BaseService } from 'src/app/shared/services/base.service';
 import { ClientSettings } from '../auth.constants';
-import { IDENTITY_SERVER } from 'src/environments/app.config';
+import { USERINFO_LS, IDENTITY_CONFIG } from 'src/environments/app.config';
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +21,16 @@ export class AuthService extends BaseService {
 
   constructor(protected http: HttpClient) {
     super(http);
-    this.baseUrl = IDENTITY_SERVER;
+    this.baseUrl = IDENTITY_CONFIG.IDENTITY_SERVER;
 
     this.manager.getUser().then(user => {
       this.user = user;
-
-      if (this.user) {
-        localStorage.setItem('userInfo', JSON.stringify(this.user))
-      }
-
       this._authNavStatusSource.next(this.isAuthenticated());
     });
+  }
+
+  saveUserInfoToLs() {
+    localStorage.setItem(`${USERINFO_LS}`, JSON.stringify(this.user));
   }
 
   public getAccessToken() {

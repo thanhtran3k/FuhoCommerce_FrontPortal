@@ -1,11 +1,11 @@
-import { APPLICATION_URL, IDENTITY_SERVER } from 'src/environments/app.config';
+import { IDENTITY_CONFIG } from 'src/environments/app.config';
 
 export const ClientSettings = {
-    Authority: IDENTITY_SERVER,
-    ClientId: 'fuhocommerce_sellerchannel',
-    RedirectUri: APPLICATION_URL + '/auth-callback',
-    PostLogoutRedirectUri: APPLICATION_URL + '/home',
+    Authority: IDENTITY_CONFIG.IDENTITY_SERVER,
+    ClientId: IDENTITY_CONFIG.CLIENT_ID,
+    RedirectUri: IDENTITY_CONFIG.APPLICATION_URL + '/auth-callback',
+    PostLogoutRedirectUri: IDENTITY_CONFIG.APPLICATION_URL + '/home',
     ResponseType: "id_token token",
     Scope: "openid profile email api.read api.write",
-    SilentRedirectUri: APPLICATION_URL + '/silent-refresh.html'
+    SilentRedirectUri: IDENTITY_CONFIG.APPLICATION_URL + '/silent-refresh.html'
 };
