@@ -4,7 +4,6 @@ import { UserManager, User } from 'oidc-client';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 
 import { BaseService } from 'src/app/shared/services/base.service';
-import { ClientSettings } from '../auth.constants';
 import { USERINFO_LS, IDENTITY_CONFIG } from 'src/environments/app.config';
 
 @Injectable({
@@ -70,14 +69,14 @@ export class AuthService extends BaseService {
 }
 
 const settings = {
-  authority: ClientSettings.Authority,
-  client_id: ClientSettings.ClientId,
-  redirect_uri: ClientSettings.RedirectUri,
-  post_logout_redirect_uri: ClientSettings.PostLogoutRedirectUri,
-  response_type: ClientSettings.ResponseType,
-  scope: ClientSettings.Scope,
+  authority: IDENTITY_CONFIG.IDENTITY_SERVER,
+  client_id: IDENTITY_CONFIG.CLIENT_ID,
+  redirect_uri: IDENTITY_CONFIG.APPLICATION_URL + '/auth-callback',
+  post_logout_redirect_uri: IDENTITY_CONFIG.APPLICATION_URL + '/home',
+  response_type: IDENTITY_CONFIG.RESPONSE_TYPE,
+  scope: IDENTITY_CONFIG.SCOPE,
   filterProtocolClaims: true,
   loadUserInfo: true,
   automaticSilentRenew: true,
-  silent_redirect_uri: ClientSettings.SilentRedirectUri
+  silent_redirect_uri: IDENTITY_CONFIG.APPLICATION_URL + '/silent-refresh.html'
 };
