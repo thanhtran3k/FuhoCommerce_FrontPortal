@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserManager, User } from 'oidc-client';
-import { BehaviorSubject, Observable, from } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { BaseService } from 'src/app/shared/services/base.service';
 import { USERINFO_LS, IDENTITY_CONFIG } from 'src/environments/app.config';
@@ -33,7 +33,11 @@ export class AuthService extends BaseService {
   }
 
   public getAccessToken() {
-    return this.user.access_token;
+    let token = null;
+    if (this.user) {
+      token = this.user.access_token;
+    }
+    return token;
   }
 
   login() {
