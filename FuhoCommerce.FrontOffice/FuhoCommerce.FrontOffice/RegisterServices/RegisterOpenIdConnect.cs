@@ -23,7 +23,7 @@ namespace FuhoCommerce.FrontOffice.RegisterServices
             })
                 .AddCookie(options => {
                     //For Chrome 80 version
-                    options.Cookie.SameSite = SameSiteMode.Unspecified;
+                    options.Cookie.SameSite = SameSiteMode.None;
                 })
                 .AddOpenIdConnect(options =>
                 {
