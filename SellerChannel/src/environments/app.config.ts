@@ -1,5 +1,10 @@
 export const API_URI = {
+    product: 'api/Product',
 };
+
+export const IMAGES_URL = {
+    images: 'images'
+}
 
 export const PAGING_CONFIG = {
     pageIndex: 1,
