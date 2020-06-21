@@ -6,7 +6,7 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 const routes: Routes = [
   { path: 'auth-callback', component: AuthCallbackComponent  },
   // Fallback when no prior route is matched
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '/page-not-found', pathMatch: 'full' }
 ];
 
 @NgModule({

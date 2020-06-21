@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
+import { ManageProductModule } from './modules/manage-product/manage-product.module';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
+@NgModule({  
   declarations: [
     ShellComponent,
-    HeaderComponent
-  ]
+    HeaderComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ManageProductModule
+  ],
 })
 export class ShellModule { }
