@@ -12,4 +12,16 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  viewProduct() {
+
+  }
+
+  redirectToUpdate() {
+
+  }
+
+  deleteProduct() {
+
+  }
 }
