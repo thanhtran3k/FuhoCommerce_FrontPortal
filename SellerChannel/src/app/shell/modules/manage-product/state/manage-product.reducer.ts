@@ -6,7 +6,7 @@ export const initialManageProductState: IManageProductState = {
     ManagedProducts: []
 };
 
-export function articleReducer(
+export function manageProductReducer(
     manageProductState: IManageProductState = initialManageProductState,
     action: ManageProductAction
 ): IManageProductState {

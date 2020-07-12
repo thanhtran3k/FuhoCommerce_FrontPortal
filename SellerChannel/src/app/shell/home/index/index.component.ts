@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/authentication/auth.service';
-import { USERINFO_LS } from 'src/environments/app.config';
 import { Router } from '@angular/router';
 
 @Component({

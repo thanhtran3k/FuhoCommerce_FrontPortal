@@ -53,7 +53,7 @@ export class ManageProductEffects {
     goToCreateProductPage$ = this.actions$.pipe(
         ofType(ManageProductActionNames.GO_TO_CREATE_PRODUCT),
         map(() => {
-            this.router.navigate(['create-product'])
+            this.router.navigate(['create-product']);
         })
     );
     

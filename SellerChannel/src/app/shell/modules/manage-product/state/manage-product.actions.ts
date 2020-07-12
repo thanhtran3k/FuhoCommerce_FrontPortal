@@ -61,7 +61,6 @@ export class GoToEditProduct implements Action {
 }
 
 //Generic
-
 export class ManageProductSuccessAction implements Action {
     type = ManageProductActionNames.ACTION_SUCCESS;
     constructor(public subType: ManageProductActionNames, public payload: any) { }

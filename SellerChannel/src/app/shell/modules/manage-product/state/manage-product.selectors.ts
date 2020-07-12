@@ -17,11 +17,11 @@ const getManageProduct = createSelector(
 );
 
 @Injectable()
-export class ArticleSelectors extends BaseSelector {
+export class ManageProductSelectors extends BaseSelector {
     public manageProduct$: Observable<ManageProduct[]>;
 
-    constructor(private store: Store<any>, private articleActions: Actions) {
-        super(articleActions, ManageProductActionNames.ACTION_SUCCESS, ManageProductActionNames.ACTION_FAILED);
+    constructor(private store: Store<any>, private manageProductActions: Actions) {
+        super(manageProductActions, ManageProductActionNames.ACTION_SUCCESS, ManageProductActionNames.ACTION_FAILED);
         
         this.manageProduct$ = this.store.select(getManageProduct);
     }

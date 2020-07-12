@@ -6,7 +6,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { UpdateProductComponent } from './components/update-product/update-product.component';
 import { AuthGuard } from 'src/app/core/authentication/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   Shell.childRoutes([
     { path: 'product-list', component: ProductListComponent, canActivate: [AuthGuard] },
     { path: 'create-product', component: CreateProductComponent, canActivate: [AuthGuard] },
