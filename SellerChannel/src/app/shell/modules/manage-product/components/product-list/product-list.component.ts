@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Dispatcher } from 'src/app/app.dispatcher';
+import { GoToCreateProduct, GoToEditProduct } from '../../state/manage-product.actions';
 
 @Component({
   selector: 'app-product-list',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dispatcher: Dispatcher) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +20,11 @@ export class ProductListComponent implements OnInit {
   }
 
   redirectToUpdate() {
+    this.dispatcher.fire(new GoToEditProduct());
+  }
 
+  redirectToCreateProduct() {
+    return this.dispatcher.fire(new GoToCreateProduct());    
   }
 
   deleteProduct() {
