@@ -29,7 +29,6 @@ import { ManageProductServices } from 'src/app/shared/services/manage-product/ma
     StoreModule.forFeature('ManageProductModule', manageProductReducer),
   ],
   providers: [
-    // AuthGuard,
     ManageProductServices,
     ManageProductSelectors
   ]

@@ -19,13 +19,13 @@ export class AuthService extends BaseService {
     super(http);
     this.baseUrl = IDENTITY_CONFIG.IDENTITY_SERVER;
 
-    const userInfo = this.getUserFromLs();
-    if (userInfo) {
-      const { access_token: accessToken, id_token: idToken,  expires_at: expiresAt } = Object(userInfo)
-      const datetimeNow = Math.floor(Date.now() / 1000);
-      if(accessToken && (expiresAt > datetimeNow)) this.isAuthenticated = true;
-      this.user = userInfo;      
-    }
+    // const userInfo = this.getUserFromLs();
+    // if (userInfo) {
+    //   const { access_token: accessToken, id_token: idToken,  expires_at: expiresAt } = Object(userInfo)
+    //   const datetimeNow = Math.floor(Date.now() / 1000);
+    //   if(accessToken && (expiresAt > datetimeNow)) this.isAuthenticated = true;
+    //   this.user = userInfo;
+    // }
   }
 
   async saveUserInfoToLs(user: User) {
