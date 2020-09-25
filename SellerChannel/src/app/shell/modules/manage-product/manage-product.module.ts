@@ -4,8 +4,14 @@ import { ManageProductComponent } from './manage-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { UpdateProductComponent } from './components/update-product/update-product.component';
-import { ManageProductRoutingModule } from './manage-product-routing';
+import { ManageProductRoutingModule, routes } from './manage-product-routing';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { ManageProductEffects } from './state/manage-product.effects';
+import { manageProductReducer } from './state/manage-product.reducer';
+import { ManageProductSelectors } from './state/manage-product.selectors';
+import { ManageProductServices } from 'src/app/shared/services/manage-product/manage-product.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,14 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
-    ManageProductRoutingModule
+    ManageProductRoutingModule,
+    RouterModule.forChild(routes),
+    EffectsModule.forFeature([ManageProductEffects]),
+    StoreModule.forFeature('ManageProductModule', manageProductReducer),
+  ],
+  providers: [
+    ManageProductServices,
+    ManageProductSelectors
   ]
 })
 export class ManageProductModule { }

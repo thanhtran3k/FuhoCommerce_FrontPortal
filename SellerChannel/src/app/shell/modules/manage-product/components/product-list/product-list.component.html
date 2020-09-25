@@ -1,1 +1,31 @@
-<p>product-list works!</p>
+<div class="form-group">
+    <div class="text-right">
+        <button type="button" class="addBtn btn btn-primary" (click)=redirectToCreateProduct()>New product</button>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Brand Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Product Name</th>
+                <td>Brand Name</td>
+                <td>Price</td>
+                <td>Stock</td>
+                <td>Category</td>
+                <td>
+                    <button type="button" class="customBtn btn btn-primary" (click)="viewProduct()">View</button>
+                    <button type="button" class="customBtn btn btn-success" (click)="redirectToUpdate()">Update</button>
+                    <button type="button" class="customBtn btn btn-danger" (click)="deleteProduct()">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

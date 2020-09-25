@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/authentication/auth.service';
-import { USERINFO_LS } from 'src/environments/app.config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -8,14 +8,17 @@ import { USERINFO_LS } from 'src/environments/app.config';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  isAuthorized: boolean = false;
+  isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) { }
   
   ngOnInit() {
-    this.isAuthorized = this.authService.isAuthenticated();    
-    if(this.isAuthorized) {
-      this.authService.saveUserInfoToLs();
+    this.isAuthenticated = this.authService.isAuthenticated;    
+    if(this.isAuthenticated) {
+      this.router.navigate(['product-list']);
     }
   }
 
